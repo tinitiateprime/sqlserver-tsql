@@ -31,8 +31,6 @@ CREATE TABLE emp_salary_audit (
     update_date DATETIME DEFAULT GETDATE()
 );
 
-
-
 ```
 
 * **DML triggers**
