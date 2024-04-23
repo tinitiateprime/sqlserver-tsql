@@ -56,7 +56,7 @@ CREATE TABLE emp (
     dept_id INT
 );
 
--- Audit table
+-- Audit table 
 CREATE TABLE emp_audit (
     audit_id INT IDENTITY(1,1) PRIMARY KEY,
     emp_id INT,
