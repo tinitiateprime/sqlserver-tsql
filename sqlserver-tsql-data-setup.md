@@ -11,10 +11,10 @@ Data Query Language (DQL) is a powerful tool used to retrieve and manipulate dat
 * In this tutorial, we'll walk through the process of setting up Employees ,billing-product, student-courses,supplier-parts DQL data, step by step.
 
 
-## [billing-product](./data-setup-billing-product.md)
+## [Billing-Product Data Model](./data-setup-billing-product.md)
 
-## [emp-dept](./data-setup-emp-dept.md)
+## [Emp-Dept Data Model](./data-setup-emp-dept.md)
 
-## [student-courses](./data-setup-student-courses.md)
+## [Student-Courses Data Model](./data-setup-student-courses.md)
 
-## [supplier-parts](./data-setup-supplier-parts.md)
+## [Supplier-Parts Data Model](./data-setup-supplier-parts.md)
