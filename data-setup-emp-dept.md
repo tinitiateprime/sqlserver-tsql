@@ -3,7 +3,7 @@
 # T-SQL Server
 &copy; TINITIATE.COM
 
-##### [Back To Context](./sqlserver-tsql-data-setup.md)
+##### [Back To Data Setup](./sqlserver-tsql-data-setup.md)
 
 # Emp-Dept-Sal Data Model
 ## Departments (dept) Table

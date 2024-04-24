@@ -3,7 +3,7 @@
 # T-SQL Server
 &copy; TINITIATE.COM
 
-##### [Back To Context](./sqlserver-tsql-data-setup.md)
+##### [Back To Data Setup](./sqlserver-tsql-data-setup.md)
 
 # Supplier - Parts Data Model
 ## Suppliers Table
