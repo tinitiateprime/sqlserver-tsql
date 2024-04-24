@@ -5,7 +5,7 @@
 ## CONTEXT
 * ### [Introduction](./t-sql-introduction.md)
 * ### [Data Setup](./sqlserver-tsql-data-setup.md)
-* ### [t-sql Basics](./sqlserver-sql-in-tsql.md)
+* ### [T-sql Basics](./sqlserver-sql-in-tsql.md)
 * ### [Code Blocks](./sqlserver-tsql-begin-end.md)
 * ### [Variables & Operators](./sqlserver-tsql-Variables-and-Operators.md)
 * ### [Conditional Statements](./sqlserver-tsql-conditional.md)
@@ -17,8 +17,8 @@
 * ### [Views](./sqlserver-tsql-views.md)
 * ### [Exceptions](./sqlserver-tsql-exception.md)
 * ### [Materialized Views](./sqlserver-tsql-materialized-views.md)
-* ### [temp tables](./sqlserver-tsql-temp-tables.md)
-* ### [triggers](./sqlserver-tsql-triggers.md)
+* ### [Temp tables](./sqlserver-tsql-temp-tables.md)
+* ### [Triggers](./sqlserver-tsql-triggers.md)
 
 ***
 | &copy; TINITIATE.COM |
