@@ -1,3 +1,10 @@
+![Tinitiate SQLSERVER Training](./sqlserver_tinitiate.png)
+
+# T-SQL Server
+&copy; TINITIATE.COM
+
+##### [Back To Context](./sqlserver-tsql-data-setup.md)
+
 # Student Courses Data Model :
 ## Semesters Table 
 * semester_id: A unique identifier for each semester. It is the primary key of the table.

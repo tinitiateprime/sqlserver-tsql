@@ -4,6 +4,7 @@
 
 ## CONTEXT
 * ### [Introduction](./t-sql-introduction.md)
+* ### [Data Setup](./sqlserver-tsql-data-setup.md)
 * ### [t-sql Basics](./sqlserver-sql-in-tsql.md)
 * ### [Code Blocks](./sqlserver-tsql-begin-end.md)
 * ### [Variables & Operators](./sqlserver-tsql-Variables-and-Operators.md)

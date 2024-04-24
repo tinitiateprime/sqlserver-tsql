@@ -1,4 +1,11 @@
-# Emp-Dept-Sal Data Model
+![Tinitiate SQLSERVER Training](./sqlserver_tinitiate.png)
+
+# T-SQL Server
+&copy; TINITIATE.COM
+
+##### [Back To Context](./sqlserver-tsql-data-setup.md)
+
+# Billing-Product Data Model
 ## Products Table
 * product_id: A unique identifier for each product. It is the primary key of the table.
 * product_name: The name of the product.

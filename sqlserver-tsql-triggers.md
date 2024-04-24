@@ -1,4 +1,10 @@
-![Tinitiate SQLSERVER Training](images/sqlserver.png)
+![Tinitiate SQLSERVER Training](./sqlserver_tinitiate.png)
+
+# T-SQL Server
+&copy; TINITIATE.COM
+
+##### [Back To Context](./README.md)
+
 # SQL SERVER TRIGGERS
 In SQL Server, a trigger is a special type of stored procedure that is automatically executed in response to certain events occurring in the database. Triggers can be used to enforce business rules, validate data, and perform other actions when data is inserted, updated, or deleted from a table.
 
