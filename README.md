@@ -10,6 +10,7 @@
 * ### [Variables & Operators](./sqlserver-tsql-Variables-and-Operators.md)
 * ### [Conditional Statements](./sqlserver-tsql-conditional.md)
 * ### [Loops](./sqlserver-tsql-loops.md)
+* ### [Arrays/Collections]
 * ### [Cursors](./sqlserver-tsql-cursors.md)
 * ### [Dynamic Sql](./sqlserver-tsql-dynamicsql.md)
 * ### [Functions](./sqlserver-tsql-functions.md)
@@ -19,12 +20,7 @@
 * ### [Materialized Views](./sqlserver-tsql-materialized-views.md)
 * ### [Temp tables](./sqlserver-tsql-temp-tables.md)
 * ### [Triggers](./sqlserver-tsql-triggers.md)
-* ### [Anonymous Block](./sqlserver-tsql-anonymous_block.md)
-* ### [Pipeline Functions](./sqlserver-tsql-Pipeline-Functions.md)
-* ### [Collections/Arrays](./sqlserver-tsql-collections.md)
-* ### [Bulk Data Handling](./sqlserver-tsql-bulk-data.md)
 
 ***
 | &copy; TINITIATE.COM |
 |----------------------|
-
