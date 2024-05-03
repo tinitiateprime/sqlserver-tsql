@@ -19,7 +19,12 @@
 * ### [Materialized Views](./sqlserver-tsql-materialized-views.md)
 * ### [Temp tables](./sqlserver-tsql-temp-tables.md)
 * ### [Triggers](./sqlserver-tsql-triggers.md)
+* ### [Anonymous Block](./sqlserver-tsql-anonymous_block.md)
+* ### [Pipeline Functions](./sqlserver-tsql-Pipeline-Functions.md)
+* ### [Collections/Arrays](./sqlserver-tsql-collections.md)
+* ### [Bulk Data Handling](./sqlserver-tsql-bulk-data.md)
 
 ***
 | &copy; TINITIATE.COM |
 |----------------------|
+
