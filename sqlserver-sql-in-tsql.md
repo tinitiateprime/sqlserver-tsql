@@ -11,13 +11,13 @@
 ```sql
 
 -- SQL in TSQL
-    BEGIN
+   BEGIN
     -- Data Input Variables
-    DECLARE @l_in_emp_id INT = 2;
-    DECLARE @l_in_emp_name VARCHAR(100) = 'John Doe';
+    DECLARE @l_in_emp_id INT = 7499;
+    DECLARE @l_in_emp_name VARCHAR(100) = 'allen';
     DECLARE @l_in_job_title VARCHAR(100) = 'Analyst';
-    DECLARE @l_in_salary DECIMAL(10,2) = 75000.00;
-    DECLARE @l_in_dept_id INT = 1;
+    DECLARE @l_in_salary DECIMAL(10,2) = 7500.00;
+    DECLARE @l_in_dept_id INT = 30;
 
     -- Code Variables
     DECLARE @emp_id INT;
@@ -25,38 +25,37 @@
 
     -- DQL: Get employee count and print it
     SELECT @emp_count = COUNT(*) 
-    FROM emp;
+    FROM employees.emp;
 
     PRINT CONCAT('Number of Employees: ', @emp_count);
 
     -- DML: Insert or update employee data
-    SELECT @emp_id = emp_id
-    FROM emp
-    WHERE emp_id = @l_in_emp_id;
+    SELECT @emp_id = empno
+    FROM employees.emp
+    WHERE empno = @l_in_emp_id;
 
     IF @@rowcount = 0 -- If no employee found with the given ID
     BEGIN
         PRINT CONCAT('Employee: ', @l_in_emp_id, ' does not exist, Adding now!');
-        INSERT INTO emp (emp_id, emp_name, job_title, salary, dept_id)
+        INSERT INTO employees.emp (empno, ename, job, sal, deptno)
         VALUES (@l_in_emp_id, @l_in_emp_name, @l_in_job_title, @l_in_salary, @l_in_dept_id);
         PRINT CONCAT('Rows Inserted: ', @@rowcount);
     END
     ELSE
     BEGIN
         PRINT CONCAT('Employee: ', @l_in_emp_id, ' exists, Updating with new values');
-        UPDATE emp
-        SET emp_name = @l_in_emp_name,
-            job_title = @l_in_job_title,
-            salary = @l_in_salary,
-            dept_id = @l_in_dept_id
-        WHERE emp_id = @l_in_emp_id;
+        UPDATE employees.emp
+        SET ename = @l_in_emp_name,
+            job = @l_in_job_title,
+            sal = @l_in_salary,
+            deptno = @l_in_dept_id
+        WHERE empno = @l_in_emp_id;
     END
 END
-
 -- Check Updated Data
-SELECT emp_id, emp_name, job_title, salary 
-FROM emp
-WHERE emp_id = 2;
+SELECT empno, ename, job, sal
+FROM employees.emp
+WHERE empno =7499;
 
 
 ```
