@@ -60,3 +60,22 @@ WHERE emp_id = 2;
 
 
 ```
+
+* This T-SQL script performs the following actions to manage employee data in the emp table:
+
+Declare Input Variables:
+The script starts by declaring input parameters representing the employee's details, such as emp_id, emp_name, job_title, salary, and dept_id.
+
+Get Employee Count:
+It retrieves the total number of employees in the emp table and prints the count.
+
+Check if Employee Exists:
+The script checks if an employee with the given emp_id already exists:
+
+If the employee does not exist, it prints a message and inserts the new employee record into the table.
+If the employee exists, it prints a message and updates the employee’s details with the new values.
+Confirmation of Operation:
+After performing the insert or update, it prints the number of rows affected.
+
+Retrieve Updated Record:
+Finally, it selects and displays the updated record for the employee with emp_id = 2 to verify the changes.
