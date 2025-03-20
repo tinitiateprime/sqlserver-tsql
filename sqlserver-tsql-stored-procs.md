@@ -13,16 +13,16 @@
 
 ``` sql
 -- Create a stored procedure without parameters
-    CREATE PROCEDURE dbo.GetAllEmployees
+    CREATE PROCEDURE employees.GetAllEmployees
     AS
     BEGIN
-        SELECT emp_id, emp_name, job_title
-        FROM emp;
-    END
+        SELECT empno, ename, job
+        FROM employees.emp;
+    END;
 ```
 ```sql
 -- Execute the stored procedure
-    EXEC dbo.GetAllEmployees;
+    EXEC employees.GetAllEmployees;
 ```    
 
 * We create a stored procedure named dbo.GetAllEmployees without any parameters.
@@ -38,21 +38,25 @@
 
 ```sql
 -- Create a stored procedure with an input parameter for the department name
-CREATE PROCEDURE dbo.GetEmployeesByDepartmentName
-    @DeptName VARCHAR(100)
+CREATE PROCEDURE employees.usp_UpdateEmployee
+    @empno INT,
+    @new_sal DECIMAL(10,2),
+    @new_deptno INT
 AS
 BEGIN
-    SELECT e.emp_id, e.emp_name, e.job_title, d.dept_name
-    FROM emp e
-    JOIN dept d ON e.dept_id = d.dept_id
-    WHERE d.dept_name = @DeptName;
-END
+    UPDATE employees.emp
+    SET sal = @new_sal,
+        deptno = @new_deptno
+    WHERE empno = @empno;
+
+    PRINT CONCAT('Employee ', @empno, ' updated successfully.');
+END;
 ```
 * Execute Procedure
 
 ```sql
--- Execute the stored procedure with the department name 'IT'
-EXEC dbo.GetEmployeesByDepartmentName @DeptName = 'IT';
+-- Execute the stored procedure with the empno = 7521 and update sal and deptno
+EXEC usp_UpdateEmployee @empno = 7521, @new_sal = 1250, @new_deptno = 30;
 ```
 
 ## Procedure with Output param
@@ -64,34 +68,37 @@ Scenario , Create a stored procedure that counts the number of employees in a sp
 
 ```sql
 -- Create a stored procedure with an input and output parameter
-    CREATE PROCEDURE dbo.GetEmployeeCountByDepartment
-        @DeptID INT,                     -- Input parameter for department ID
-        @EmployeeCount INT OUTPUT        -- Output parameter to hold the count
-    AS
-    BEGIN
-        SELECT @EmployeeCount = COUNT(*)
-        FROM emp
-        WHERE dept_id = @DeptID;
-    END
+   CREATE PROCEDURE employees.GetEmployeeCountByDepartment
+    @DeptID INT,
+    @EmployeeCount INT OUTPUT
+AS
+BEGIN
+    SELECT @EmployeeCount = COUNT(*)
+    FROM employees.emp
+    WHERE deptno = @DeptID;
+END;
+
+
+
 ```
 
 ```sql
 -- Declare a variable to hold the output value
-    DECLARE @Count INT;
+DECLARE @Count INT;  -- Declare the output variable
 
-    -- Execute the stored procedure
-    EXEC dbo.GetEmployeeCountByDepartment @DeptID = 1, @EmployeeCount = @Count OUTPUT;
+EXEC employees.GetEmployeeCountByDepartment 
+     @Deptno = 10, 
+     @EmployeeCount = @Count OUTPUT;
 
-    -- Display the result
-    PRINT 'Number of employees in department: ' + CAST(@Count AS VARCHAR);
-```    
+PRINT CONCAT('Number of Employees in Department 10: ', @Count);
+
 
 
 * We create a stored procedure named dbo.GetEmployeeCountByDepartment with two parameters:
 
-    * @DeptID: An input parameter of type INT that specifies which department to count employees in.
+    * @Deptno: An input parameter of type INT that specifies which department to count employees in.
     * @EmployeeCount: An output parameter of type INT that will hold the count of employees.
-* Inside the procedure, a SELECT statement calculates the number of employees in the specified department (@DeptID) and assigns this count to the output parameter (@EmployeeCount).
+* Inside the procedure, a SELECT statement calculates the number of employees in the specified department (@Deptno) and assigns this count to the output parameter (@EmployeeCount).
 
 * To execute the procedure, you must declare a variable (@Count) to hold the output value.
 
@@ -108,7 +115,7 @@ To execute this procedure from SSMS or any other T-SQL interface, you can use th
 
 ```sql
     DECLARE @EmployeeCountResult INT;
-    EXEC dbo.GetEmployeeCountByDepartment @DeptID = 1, @EmployeeCount = @EmployeeCountResult OUTPUT;
+    EXEC dbo.GetEmployeeCountByDepartment @Deptno = 1, @EmployeeCount = @EmployeeCountResult OUTPUT;
 
     -- To see the result
     SELECT @EmployeeCountResult AS EmployeeCount;
@@ -129,13 +136,13 @@ This code declares a variable to hold the output, executes the procedure with a 
 * You can call this procedure from another stored procedure. This is useful for modular programming in SQL Server:
 
 ```sql
-    CREATE PROCEDURE dbo.CheckDepartmentSize
+       CREATE PROCEDURE employees.CheckDepartmentSize
     AS
     BEGIN
         DECLARE @EmployeeCount INT;
-        EXEC dbo.GetEmployeeCountByDepartment @DeptID = 3, @EmployeeCount = @EmployeeCount OUTPUT;
+        EXEC employees.GetEmployeeCountByDepartment @Deptid = 30, @EmployeeCount = @EmployeeCount OUTPUT;
         
-        IF @EmployeeCount > 50
+        IF @EmployeeCount > 4
             PRINT 'Large Department';
         ELSE
             PRINT 'Small or Medium Department';
