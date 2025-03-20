@@ -24,7 +24,7 @@ CREATE FUNCTION dbo.GetEmployeesByDepartment (@DeptID INT)
 RETURNS TABLE
 AS
 RETURN
-    SELECT emp_id, emp_name, job_title
+    SELECT empno, emp_name, job_title
     FROM emp
     WHERE dept_id = @DeptID;
 ```
@@ -48,7 +48,7 @@ To use the function, we call it in a SELECT statement, passing the desired depar
     RETURNS TABLE
     AS
     RETURN
-        SELECT emp_id, emp_name, job_title
+        SELECT empno, emp_name, job_title
         FROM emp
         WHERE dept_id = ISNULL(@DeptID, dept_id);
 ```
