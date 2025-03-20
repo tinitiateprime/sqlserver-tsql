@@ -69,13 +69,13 @@ Scenario , Create a stored procedure that counts the number of employees in a sp
 ```sql
 -- Create a stored procedure with an input and output parameter
    CREATE PROCEDURE employees.GetEmployeeCountByDepartment
-    @DeptID INT,
+    @deptno INT,
     @EmployeeCount INT OUTPUT
 AS
 BEGIN
     SELECT @EmployeeCount = COUNT(*)
     FROM employees.emp
-    WHERE deptno = @DeptID;
+    WHERE deptno = @deptno;
 END;
 
 
@@ -128,7 +128,7 @@ This code declares a variable to hold the output, executes the procedure with a 
 ```sql
     BEGIN
         DECLARE @Result INT;
-        EXEC employees.GetEmployeeCountByDepartment @DeptID = 2, @EmployeeCount = @Result OUTPUT;
+        EXEC employees.GetEmployeeCountByDepartment @deptno = 2, @EmployeeCount = @Result OUTPUT;
         PRINT 'Number of employees in department 2: ' + CAST(@Result AS VARCHAR(10));
     END
 ```    
@@ -140,7 +140,7 @@ This code declares a variable to hold the output, executes the procedure with a 
     AS
     BEGIN
         DECLARE @EmployeeCount INT;
-        EXEC employees.GetEmployeeCountByDepartment @Deptid = 30, @EmployeeCount = @EmployeeCount OUTPUT;
+        EXEC employees.GetEmployeeCountByDepartment @deptno = 30, @EmployeeCount = @EmployeeCount OUTPUT;
         
         IF @EmployeeCount > 4
             PRINT 'Large Department';
@@ -168,19 +168,19 @@ Here's how to define default values for parameters in SQL Server:
 ```sql
     -- Example of a stored procedure with default parameters
     CREATE PROCEDURE employees.GetEmployees
-        @DeptID INT = NULL,            -- Default value is NULL
+        @deptno INT = NULL,            -- Default value is NULL
         @Status VARCHAR(100) = 'Active' -- Default value is 'Active'
     AS
     BEGIN
         SELECT emp_name, emp_id, dept_id, status
         FROM emp
-        WHERE (dept_id = @DeptID OR @DeptID IS NULL)
+        WHERE (dept_id = @deptno OR @deptno IS NULL)
         AND status = @Status;
     END
 ```
 In this example:
 
-* The @DeptID parameter has a default value of NULL. If @DeptID is not provided when the procedure is called, the query will ignore the department filter.
+* The @deptno parameter has a default value of NULL. If @deptno is not provided when the procedure is called, the query will ignore the department filter.
 * The @Status parameter defaults to 'Active'. If @Status is not provided, the procedure will filter employees where the status is 'Active'.
 
 ### Calling the Stored Procedure with Default Parameters
@@ -192,10 +192,10 @@ You can call this stored procedure in various ways depending on whether you want
 ```sql
 EXEC employees.GetEmployees;
 ```
-* Providing a Value for @DeptID Only:
+* Providing a Value for @deptno Only:
 
 ```sql
-EXEC employees.GetEmployees @DeptID = 10;
+EXEC employees.GetEmployees @deptno = 10;
 ```
 
 * Providing a Value for @Status Only:
@@ -206,12 +206,12 @@ EXEC employees.GetEmployees @Status = 'Retired';
 
 * Providing Values for Both Parameters:
 ```sql
-EXEC employees.GetEmployees @DeptID = 10, @Status = 'Retired';
+EXEC employees.GetEmployees @deptno = 10, @Status = 'Retired';
 ```
 
 * Providing Values Using Named Parameters (Out of Order):
 ```sql
-EXEC employees.GetEmployees @Status = 'Retired', @DeptID = 10;
+EXEC employees.GetEmployees @Status = 'Retired', @deptno = 10;
 ```
 
 ### Benefits of Default Parameters
