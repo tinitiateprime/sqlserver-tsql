@@ -31,7 +31,7 @@ RETURN
 * Execute the function
 ```sql
 -- Use the function to get employee details for department 1
-SELECT * FROM employees.GetEmployeesByDepartment(1);
+SELECT * FROM employees.GetEmployeesByDepartment(10);
 ```
 
 We create a table-valued function named employees.GetEmployeesByDepartment that takes an integer parameter @Deptno, representing the department ID.
@@ -44,21 +44,21 @@ To use the function, we call it in a SELECT statement, passing the desired depar
 
 ``` sql
 -- Create a table-valued function with a default parameter value
-    CREATE FUNCTION employees.GetEmployeesByDepartment (@Deptno INT = NULL)
+       CREATE FUNCTION employees.GetEmployeesByDepartment (@Deptno INT = NULL)
     RETURNS TABLE
     AS
     RETURN
-        SELECT empno, ename, job_title
-        FROM emp
+        SELECT empno, ename, job
+        FROM employees.emp
         WHERE Deptno = ISNULL(@Deptno, Deptno);
 ```
 
 * Execute the function
 ``` sql
 -- Use the function without specifying a department ID
-SELECT * FROM employees.GetEmployeesByDepartment();
+SELECT * FROM employees.GetEmployeesByDepartment(NULL);
 -- Use the function with a specific department ID
-SELECT * FROM employees.GetEmployeesByDepartment(1);
+SELECT * FROM employees.GetEmployeesByDepartment(10);
 ```
  We create a table-valued function named employees.GetEmployeesByDepartment with an  integer parameter @Deptno. We assign a default value of NULL to @Deptno.
  The function returns a table containing the employee ID, employee name, and  job title.
@@ -100,7 +100,7 @@ In an inline table-valued function, the RETURN statement directly contains a SEL
     RETURNS TABLE
     AS
     RETURN (
-        SELECT ename, job_title FROM employees.emp WHERE Deptno = @Deptno
+        SELECT ename, job FROM employees.emp WHERE Deptno = @Deptno
     )
 ```
 * In this example, the GetEmployeesByDepartment function returns a table    
@@ -111,12 +111,12 @@ In an inline table-valued function, the RETURN statement directly contains a SEL
 
 ```sql
     CREATE FUNCTION GetAllEmployees()
-    RETURNS @EmployeeTable TABLE (ename VARCHAR(100), job_title VARCHAR(100))
+    RETURNS @EmployeeTable TABLE (ename VARCHAR(100), job VARCHAR(100))
     AS
     BEGIN
         -- Insert data into the table variable
-        INSERT INTO @EmployeeTable (ename, job_title)
-        SELECT ename, job_title FROM employees.emp;
+        INSERT INTO @EmployeeTable (ename, job)
+        SELECT ename, job FROM employees.emp;
 
         -- Return the table variable
         RETURN;
@@ -156,9 +156,9 @@ The RETURN statement immediately exits the function and returns control to the c
         SELECT * FROM employees.GetEmployeesByDepartment(1);
 
         -- Alternatively, store the result set in a table variable for further processing
-        DECLARE @EmployeeDetails TABLE (ename VARCHAR(100), job_title VARCHAR(100));
+        DECLARE @EmployeeDetails TABLE (ename VARCHAR(100), job VARCHAR(100));
         INSERT INTO @EmployeeDetails
-        SELECT * FROM employees.GetEmployeesByDepartment(1);
+        SELECT * FROM employees.GetEmployeesByDepartment(10);
 
         SELECT * FROM @EmployeeDetails;
     END
