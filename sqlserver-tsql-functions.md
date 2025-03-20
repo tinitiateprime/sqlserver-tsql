@@ -20,22 +20,22 @@
 
 ```sql
 -- Create a table-valued function that takes a department ID as input
-CREATE FUNCTION dbo.GetEmployeesByDepartment (@DeptID INT)
+CREATE FUNCTION employees.GetEmployeesByDepartment (@Deptno INT)
 RETURNS TABLE
 AS
 RETURN
-    SELECT empno, emp_name, job_title
-    FROM emp
-    WHERE dept_id = @DeptID;
+    SELECT empno, ename, job
+    FROM employees.emp
+    WHERE deptno = @Deptno;
 ```
 * Execute the function
 ```sql
 -- Use the function to get employee details for department 1
-SELECT * FROM dbo.GetEmployeesByDepartment(1);
+SELECT * FROM employees.GetEmployeesByDepartment(1);
 ```
 
-We create a table-valued function named dbo.GetEmployeesByDepartment that takes an integer parameter @DeptID, representing the department ID.
-The function returns a table that contains the employee ID, employee name, and job title for all employees who work in the department specified by @DeptID.
+We create a table-valued function named employees.GetEmployeesByDepartment that takes an integer parameter @Deptno, representing the department ID.
+The function returns a table that contains the employee ID, employee name, and job title for all employees who work in the department specified by @Deptno.
 The WHERE clause in the SELECT statement filters the employees based on the department ID.
 To use the function, we call it in a SELECT statement, passing the desired department ID as an argument. In this case, we pass 1 to get the details of employees in department 1.
 
@@ -44,25 +44,25 @@ To use the function, we call it in a SELECT statement, passing the desired depar
 
 ``` sql
 -- Create a table-valued function with a default parameter value
-    CREATE FUNCTION dbo.GetEmployeesByDepartment (@DeptID INT = NULL)
+    CREATE FUNCTION employees.GetEmployeesByDepartment (@Deptno INT = NULL)
     RETURNS TABLE
     AS
     RETURN
-        SELECT empno, emp_name, job_title
+        SELECT empno, ename, job_title
         FROM emp
-        WHERE dept_id = ISNULL(@DeptID, dept_id);
+        WHERE Deptno = ISNULL(@Deptno, Deptno);
 ```
 
 * Execute the function
 ``` sql
 -- Use the function without specifying a department ID
-SELECT * FROM dbo.GetEmployeesByDepartment();
+SELECT * FROM employees.GetEmployeesByDepartment();
 -- Use the function with a specific department ID
-SELECT * FROM dbo.GetEmployeesByDepartment(1);
+SELECT * FROM employees.GetEmployeesByDepartment(1);
 ```
- We create a table-valued function named dbo.GetEmployeesByDepartment with an  integer parameter @DeptID. We assign a default value of NULL to @DeptID.
+ We create a table-valued function named employees.GetEmployeesByDepartment with an  integer parameter @Deptno. We assign a default value of NULL to @Deptno.
  The function returns a table containing the employee ID, employee name, and  job title.
- The WHERE clause uses the ISNULL function to check if @DeptID is NULL. If it  is, the condition dept_id = dept_id is effectively ignored, and employees  from all departments are returned. If @DeptID is not NULL, only employees  from the specified department are returned.
+ The WHERE clause uses the ISNULL function to check if @Deptno is NULL. If it  is, the condition Deptno = Deptno is effectively ignored, and employees  from all departments are returned. If @Deptno is not NULL, only employees  from the specified department are returned.
  When calling the function, you can either omit the parameter to get  employees from all departments or provide a specific department ID to get  employees from that department. 
 
 ## Explain Return
@@ -81,7 +81,7 @@ BEGIN
     DECLARE @Count INT;
 
     -- Count the number of employees
-    SELECT @Count = COUNT(*) FROM emp;
+    SELECT @Count = COUNT(*) FROM employees.emp;
 
     -- Return the count
     RETURN @Count;
@@ -96,11 +96,11 @@ A table-valued function returns a table. In a table-valued function, the RETURN 
 In an inline table-valued function, the RETURN statement directly contains a SELECT statement that produces the result set.
 
 ```sql
-    CREATE FUNCTION GetEmployeesByDepartment(@DeptID INT)
+    CREATE FUNCTION GetEmployeesByDepartment(@Deptno INT)
     RETURNS TABLE
     AS
     RETURN (
-        SELECT emp_name, job_title FROM emp WHERE dept_id = @DeptID
+        SELECT ename, job_title FROM employees.emp WHERE Deptno = @Deptno
     )
 ```
 * In this example, the GetEmployeesByDepartment function returns a table    
@@ -111,12 +111,12 @@ In an inline table-valued function, the RETURN statement directly contains a SEL
 
 ```sql
     CREATE FUNCTION GetAllEmployees()
-    RETURNS @EmployeeTable TABLE (emp_name VARCHAR(100), job_title VARCHAR(100))
+    RETURNS @EmployeeTable TABLE (ename VARCHAR(100), job_title VARCHAR(100))
     AS
     BEGIN
         -- Insert data into the table variable
-        INSERT INTO @EmployeeTable (emp_name, job_title)
-        SELECT emp_name, job_title FROM emp;
+        INSERT INTO @EmployeeTable (ename, job_title)
+        SELECT ename, job_title FROM employees.emp;
 
         -- Return the table variable
         RETURN;
@@ -126,7 +126,7 @@ In an inline table-valued function, the RETURN statement directly contains a SEL
 
 ```sql
 -- Execute the multi-statement table-valued function
-SELECT * FROM dbo.GetAllEmployees();
+SELECT * FROM employees.GetAllEmployees();
 
 ```
 
@@ -142,7 +142,7 @@ The RETURN statement immediately exits the function and returns control to the c
     BEGIN
         -- Execute a scalar function and store the result in a variable
         DECLARE @TotalEmployees INT;
-        SET @TotalEmployees = dbo.GetTotalEmployeeCount();
+        SET @TotalEmployees = employees.GetTotalEmployeeCount();
         PRINT 'Total number of employees: ' + CAST(@TotalEmployees AS VARCHAR);
     END
 ```
@@ -153,12 +153,12 @@ The RETURN statement immediately exits the function and returns control to the c
 
     BEGIN
         -- Execute a table-valued function and use the result set directly
-        SELECT * FROM dbo.GetEmployeesByDepartment(1);
+        SELECT * FROM employees.GetEmployeesByDepartment(1);
 
         -- Alternatively, store the result set in a table variable for further processing
-        DECLARE @EmployeeDetails TABLE (emp_name VARCHAR(100), job_title VARCHAR(100));
+        DECLARE @EmployeeDetails TABLE (ename VARCHAR(100), job_title VARCHAR(100));
         INSERT INTO @EmployeeDetails
-        SELECT * FROM dbo.GetEmployeesByDepartment(1);
+        SELECT * FROM employees.GetEmployeesByDepartment(1);
 
         SELECT * FROM @EmployeeDetails;
     END
