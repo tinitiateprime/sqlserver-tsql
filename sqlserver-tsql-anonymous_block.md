@@ -12,51 +12,49 @@
 Below is how to create an anonymous block to perform a transaction that involves the tables you defined (products, customers, bill, billdetails). 
 
 ```sql
-BEGIN TRANSACTION
+BEGIN TRANSACTION;
 
 BEGIN TRY
-    -- Insert a customer
-    DECLARE @CustomerId INT = 1;
-    DECLARE @CustomerName VARCHAR(100) = 'John Doe';
-    DECLARE @ContactInfo VARCHAR(200) = 'john.doe@example.com';
+    -- Insert Employee 1
+    DECLARE @EmpId1 INT = 7900;
+    DECLARE @EmpName1 VARCHAR(100) = 'James';
+    DECLARE @Job1 VARCHAR(50) = 'CLERK';
+    DECLARE @Salary1 DECIMAL(10, 2) = 950.00;
+    DECLARE @DeptId1 INT = 30;
 
-    INSERT INTO customers (customer_id, customer_name, contact_info)
-    VALUES (@CustomerId, @CustomerName, @ContactInfo);
+    INSERT INTO employees.emp (empno, ename, job, sal, deptno)
+    VALUES (@EmpId1, @EmpName1, @Job1, @Salary1, @DeptId1);
 
-    -- Insert a product
-    DECLARE @ProductId INT = 101;
-    DECLARE @ProductName VARCHAR(100) = 'Widget';
-    DECLARE @Price DECIMAL(10, 2) = 29.99;
+    -- Insert Employee 2
+    DECLARE @EmpId2 INT = 7901;
+    DECLARE @EmpName2 VARCHAR(100) = 'Miller';
+    DECLARE @Job2 VARCHAR(50) = 'CLERK';
+    DECLARE @Salary2 DECIMAL(10, 2) = 1300.00;
+    DECLARE @DeptId2 INT = 10;
 
-    INSERT INTO products (product_id, product_name, price)
-    VALUES (@ProductId, @ProductName, @Price);
+    INSERT INTO employees.emp (empno, ename, job, sal, deptno)
+    VALUES (@EmpId2, @EmpName2, @Job2, @Salary2, @DeptId2);
 
-    -- Create a bill
-    DECLARE @BillId INT = 501;
-    DECLARE @BillDate DATE = GETDATE();
-    DECLARE @TotalAmount DECIMAL(10, 2) = @Price;  -- Assuming quantity of 1 for simplicity
+    -- Insert Employee 3
+    DECLARE @EmpId3 INT = 7902;
+    DECLARE @EmpName3 VARCHAR(100) = 'Clark';
+    DECLARE @Job3 VARCHAR(50) = 'MANAGER';
+    DECLARE @Salary3 DECIMAL(10, 2) = 2450.00;
+    DECLARE @DeptId3 INT = 10;
 
-    INSERT INTO bill (bill_id, customer_id, bill_date, total_amount)
-    VALUES (@BillId, @CustomerId, @BillDate, @TotalAmount);
+    INSERT INTO employees.emp (empno, ename, job, sal, deptno)
+    VALUES (@EmpId3, @EmpName3, @Job3, @Salary3, @DeptId3);
 
-    -- Insert bill details
-    DECLARE @BillDetailId INT = 1001;
-    DECLARE @Quantity INT = 1;
-    DECLARE @LineTotal DECIMAL(10, 2) = @Price * @Quantity;
-
-    INSERT INTO billdetails (billdetail_id, bill_id, product_id, quantity, line_total)
-    VALUES (@BillDetailId, @BillId, @ProductId, @Quantity, @LineTotal);
-
-    -- Commit the transaction
+    -- If everything is successful
     COMMIT TRANSACTION;
-
-    PRINT 'Transaction completed successfully.';
+    PRINT 'Employee transaction completed successfully.';
 END TRY
 BEGIN CATCH
-    -- Handle the error
+    -- Rollback if any error occurs
     ROLLBACK TRANSACTION;
     PRINT 'Error occurred: ' + ERROR_MESSAGE();
-END CATCH
+END CATCH;
+
 ```
 
 **Transaction Management:** This script uses a transaction to ensure that all operations are completed successfully or, in case of an error, all operations are rolled back. This is essential to maintain data integrity.
