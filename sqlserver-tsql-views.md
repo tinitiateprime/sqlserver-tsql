@@ -24,8 +24,8 @@ Here is how you can create a simple view in SQL Server:
 ```sql
 CREATE VIEW vw_AllEmployees
 AS
-SELECT emp_id, emp_name, job_title, salary, dept_id
-FROM emp;
+SELECT empno, ename, job, sal, deptno
+FROM employees.emp;
 
 ```
 This view vw_EmployeeInfo shows a list of employees who are managers.
@@ -46,9 +46,9 @@ If you need to modify a view, you can use the ALTER VIEW statement. For example,
 ```sql
 ALTER VIEW vw_EmployeeDepartments
 AS
-SELECT e.emp_id, e.emp_name, e.job_title, e.salary, d.dept_name, d.dept_id
-FROM emp e
-JOIN dept d ON e.dept_id = d.dept_id;
+SELECT e.empno, e.ename, e.job, e.sal, d.dname, d.deptno
+FROM employees.emp e
+JOIN employees.dept d ON e.deptno = d.deptno;
 ```
 
 ## Dropping Views
@@ -72,28 +72,28 @@ List of projects they are assigned to
 Database Schema:
 Assuming the following simplified schema for tables:
 
-emp (emp_id, emp_name, dept_id)
-dept (dept_id, dept_name)
+emp (empno, ename, deptno)
+dept (deptno, dname)
 project (project_id, project_name)
-emp_project (emp_id, project_id)
+emp_project (empno, project_id)
 SQL Code to Create the View:
 ```sql
   CREATE VIEW vw_EmployeeDetails
   AS
   SELECT 
-      e.emp_id,
-      e.emp_name,
-      d.dept_name,
+      e.empno,
+      e.ename,
+      d.dname,
       STRING_AGG(p.project_name, ', ') WITHIN GROUP (ORDER BY p.project_name) AS Projects
   FROM 
       emp e
-      INNER JOIN dept d ON e.dept_id = d.dept_id
-      LEFT JOIN emp_project ep ON e.emp_id = ep.emp_id
+      INNER JOIN dept d ON e.deptno = d.deptno
+      LEFT JOIN emp_project ep ON e.empno = ep.empno
       LEFT JOIN project p ON ep.project_id = p.project_id
   GROUP BY 
-      e.emp_id,
-      e.emp_name,
-      d.dept_name;
+      e.empno,
+      e.ename,
+      d.dname;
 ```
 **Explanation:** 
 
@@ -122,13 +122,13 @@ SELECT * FROM vw_EmployeeDetails;
 ```sql
 -- Creating a simple view on the employees table
   CREATE VIEW vw_EmployeeBasicInfo AS
-  SELECT emp_id, emp_name, job_title
+  SELECT empno, ename, job
   FROM emp;
 
 -- Updating data through the view
   UPDATE vw_EmployeeBasicInfo
-  SET job_title = 'Senior Developer'
-  WHERE emp_id = 1;
+  SET job = 'Senior Developer'
+  WHERE empno = 1;
   In this example, vw_EmployeeBasicInfo is a simple view that does not include any of the features that would disqualify it from being updatable. Therefore, you can perform an UPDATE operation directly through the view.
 ```
 
@@ -140,9 +140,9 @@ For complex views, you can use INSTEAD OF triggers to specify custom actions to 
 ```sql
 -- Creating a complex view with a join
   CREATE VIEW vw_EmployeeDept AS
-  SELECT e.emp_id, e.emp_name, e.job_title, d.dept_name
+  SELECT e.empno, e.ename, e.job, d.dname
   FROM emp e
-  JOIN dept d ON e.dept_id = d.dept_id;
+  JOIN dept d ON e.deptno = d.deptno;
 
 -- Creating an INSTEAD OF UPDATE trigger on the view
   CREATE TRIGGER trg_UpdateEmployeeDept ON vw_EmployeeDept
@@ -151,18 +151,18 @@ For complex views, you can use INSTEAD OF triggers to specify custom actions to 
   BEGIN
       -- Update the emp table based on the view update
       UPDATE emp
-      SET emp_name = INSERTED.emp_name,
-          job_title = INSERTED.job_title
+      SET ename = INSERTED.ename,
+          job = INSERTED.job
       FROM INSERTED
-      WHERE emp.emp_id = INSERTED.emp_id;
+      WHERE emp.empno = INSERTED.empno;
 
       -- Update logic for dept could also be included if needed
   END;
 
 -- Updating data through the view
   UPDATE vw_EmployeeDept
-  SET job_title = 'Senior Developer'
-  WHERE emp_id = 1;
+  SET job = 'Senior Developer'
+  WHERE empno = 1;
 ```
 In this scenario, vw_EmployeeDept includes a join, making it complex and typically not updatable directly. The INSTEAD OF trigger, trg_UpdateEmployeeDept, intercepts update operations on the view and provides the necessary SQL commands to update the underlying emp table accordingly.
 
