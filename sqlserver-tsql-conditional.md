@@ -15,7 +15,7 @@ Example: Check if a Department Exists
  ```sql
     DECLARE @DeptName VARCHAR(100) = 'IT';
 
-    IF EXISTS (SELECT 1 FROM dept WHERE dept_name = @DeptName)
+    IF EXISTS (SELECT 1 FROM employees.dept WHERE dname = @DeptName)
         BEGIN
             PRINT 'The department exists.';
         END
@@ -29,29 +29,29 @@ In this example, we check if there is a department named 'IT' in the dept table.
 ## CASE Statement
  The CASE statement is used for conditional logic within a SELECT query. It evaluates a list of conditions and returns a result for the first condition that is true.
 
-Example: Categorize Employees Based on Salary
+Example: Categorize Employees Based on sal
  ```sql
     SELECT 
-        emp_name,
+        ename,
         CASE 
-            WHEN salary < 50000 THEN 'Low'
-            WHEN salary BETWEEN 50000 AND 100000 THEN 'Medium'
+            WHEN sal < 50000 THEN 'Low'
+            WHEN sal BETWEEN 50000 AND 100000 THEN 'Medium'
             ELSE 'High'
-        END AS SalaryCategory
-    FROM emp;
+        END AS salCategory
+    FROM employees.emp;
 ```
-In this example, we categorize employees into 'Low', 'Medium', and 'High' salary groups based on their salary in the emp table.
+In this example, we categorize employees into 'Low', 'Medium', and 'High' sal groups based on their sal in the emp table.
 
 ## IIF Function
  The IIF function is a shorthand way to write a simple IF...ELSE condition. It takes three arguments: a condition, a true value, and a false value.
 
-Example: Check if Salary is Above Average
+Example: Check if sal is Above Average
 ```sql
 
     SELECT 
-        emp_name,
-        salary,
-        IIF(salary > (SELECT AVG(salary) FROM emp), 'Above Average', 'Below Average') AS SalaryStatus
-    FROM emp;
+        ename,
+        sal,
+        IIF(sal > (SELECT AVG(sal) FROM emp), 'Above Average', 'Below Average') AS salStatus
+    FROM employees.emp;
 ```
-In this example, we use the IIF function to check if each employee's salary is above the average salary in the emp table. The result is a column that indicates whether each employee's salary is 'Above Average' or 'Below Average'.
+In this example, we use the IIF function to check if each employee's sal is above the average sal in the emp table. The result is a column that indicates whether each employee's sal is 'Above Average' or 'Below Average'.
