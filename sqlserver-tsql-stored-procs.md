@@ -172,9 +172,9 @@ Here's how to define default values for parameters in SQL Server:
         @Status VARCHAR(100) = 'Active' -- Default value is 'Active'
     AS
     BEGIN
-        SELECT emp_name, emp_id, dept_id, status
+        SELECT ename, empno, deptno, status
         FROM emp
-        WHERE (dept_id = @deptno OR @deptno IS NULL)
+        WHERE (deptno = @deptno OR @deptno IS NULL)
         AND status = @Status;
     END
 ```
