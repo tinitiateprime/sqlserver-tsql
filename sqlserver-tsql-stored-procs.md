@@ -25,7 +25,7 @@
     EXEC employees.GetAllEmployees;
 ```    
 
-* We create a stored procedure named dbo.GetAllEmployees without any parameters.
+* We create a stored procedure named employees.GetAllEmployees without any parameters.
 * The procedure contains a simple SELECT statement that retrieves the employee ID, employee name, and job title from the emp table.
 * To execute the stored procedure, we use the EXEC statement followed by the name of the procedure.
 
@@ -94,7 +94,7 @@ PRINT CONCAT('Number of Employees in Department 10: ', @Count);
 
 
 
-* We create a stored procedure named dbo.GetEmployeeCountByDepartment with two parameters:
+* We create a stored procedure named employees.GetEmployeeCountByDepartment with two parameters:
 
     * @Deptno: An input parameter of type INT that specifies which department to count employees in.
     * @EmployeeCount: An output parameter of type INT that will hold the count of employees.
@@ -108,14 +108,14 @@ PRINT CONCAT('Number of Employees in Department 10: ', @Count);
 
 ## Multiple ways to execute procs
 
-* The stored procedure dbo.GetEmployeeCountByDepartment which includes both an input parameter and an output parameter, there are several methods you can use depending on your environment and specific requirements. Below are multiple ways to execute this procedure in SQL Server:
+* The stored procedure employees.GetEmployeeCountByDepartment which includes both an input parameter and an output parameter, there are several methods you can use depending on your environment and specific requirements. Below are multiple ways to execute this procedure in SQL Server:
 
 ### Using T-SQL in SQL Server Management Studio (SSMS)
 To execute this procedure from SSMS or any other T-SQL interface, you can use the following approach:
 
 ```sql
     DECLARE @EmployeeCountResult INT;
-    EXEC dbo.GetEmployeeCountByDepartment @Deptno = 1, @EmployeeCount = @EmployeeCountResult OUTPUT;
+    EXEC employees.GetEmployeeCountByDepartment @Deptno = 1, @EmployeeCount = @EmployeeCountResult OUTPUT;
 
     -- To see the result
     SELECT @EmployeeCountResult AS EmployeeCount;
@@ -128,7 +128,7 @@ This code declares a variable to hold the output, executes the procedure with a 
 ```sql
     BEGIN
         DECLARE @Result INT;
-        EXEC dbo.GetEmployeeCountByDepartment @DeptID = 2, @EmployeeCount = @Result OUTPUT;
+        EXEC employees.GetEmployeeCountByDepartment @DeptID = 2, @EmployeeCount = @Result OUTPUT;
         PRINT 'Number of employees in department 2: ' + CAST(@Result AS VARCHAR(10));
     END
 ```    
@@ -167,7 +167,7 @@ Here's how to define default values for parameters in SQL Server:
 
 ```sql
     -- Example of a stored procedure with default parameters
-    CREATE PROCEDURE dbo.GetEmployees
+    CREATE PROCEDURE employees.GetEmployees
         @DeptID INT = NULL,            -- Default value is NULL
         @Status VARCHAR(100) = 'Active' -- Default value is 'Active'
     AS
@@ -190,28 +190,28 @@ You can call this stored procedure in various ways depending on whether you want
 * Using Default Values for Both Parameters:
 
 ```sql
-EXEC dbo.GetEmployees;
+EXEC employees.GetEmployees;
 ```
 * Providing a Value for @DeptID Only:
 
 ```sql
-EXEC dbo.GetEmployees @DeptID = 10;
+EXEC employees.GetEmployees @DeptID = 10;
 ```
 
 * Providing a Value for @Status Only:
 
 ```sql
-EXEC dbo.GetEmployees @Status = 'Retired';
+EXEC employees.GetEmployees @Status = 'Retired';
 ```
 
 * Providing Values for Both Parameters:
 ```sql
-EXEC dbo.GetEmployees @DeptID = 10, @Status = 'Retired';
+EXEC employees.GetEmployees @DeptID = 10, @Status = 'Retired';
 ```
 
 * Providing Values Using Named Parameters (Out of Order):
 ```sql
-EXEC dbo.GetEmployees @Status = 'Retired', @DeptID = 10;
+EXEC employees.GetEmployees @Status = 'Retired', @DeptID = 10;
 ```
 
 ### Benefits of Default Parameters
