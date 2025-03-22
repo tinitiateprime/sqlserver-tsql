@@ -1,12 +1,12 @@
 ![Tinitiate SQLSERVER Training](./sqlserver_tinitiate.png)
 
-# T-SQL Server
+# SQL in TSQL
 &copy; TINITIATE.COM
 
 ##### [Back To Context](./README.md)
 * SQL in TSQL, here we demonstrate the following
-  * DQL in TSQL
-  * DML in TSQL
+  * **DQL** in TSQL
+  * **DML** in TSQL
 
 ```sql
 
