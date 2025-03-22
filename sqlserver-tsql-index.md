@@ -1,10 +1,12 @@
-![Tinitiate ```sqlSERVER Training](./```sqlserver_tinitiate.png)
+![Tinitiate SQLSERVER Training](./sqlserver_tinitiate.png)
 
-# T-```sql Server
-&; TINITIATE.COM
+# T-SQL Server
+&copy; TINITIATE.COM
 
 ##### [Back To Context](./README.md)
-# ```sqlSERVER Indexes
+
+
+# SQLSERVER Indexes
 
 ## What is an Index in ```sql Server?
 An index is like the index in a book — it helps you find data faster without scanning the entire table.
