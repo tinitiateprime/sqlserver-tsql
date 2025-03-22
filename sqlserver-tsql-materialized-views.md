@@ -5,6 +5,8 @@
 
 ##### [Back To Context](./README.md)
 
+# Materialized VIew
+
 SQL Server doesn't support the CREATE MATERIALIZED VIEW syntax like Oracle.
 Instead, Indexed Views serve as SQL Server’s Materialized View equivalent.
 
