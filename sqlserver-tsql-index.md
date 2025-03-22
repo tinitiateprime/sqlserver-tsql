@@ -6,13 +6,13 @@
 ##### [Back To Context](./README.md)
 
 
-# SQLSERVER Indexes
+# SQL SERVER Indexes
 
-## What is an Index in ```sql Server?
+## What is an Index in Sql Server?
 An index is like the index in a book — it helps you find data faster without scanning the entire table.
 It improves query performance, especially for large datasets.
 
-## Types of Indexes in ```sql Server with Examples
+## Types of Indexes in Sql Server with Examples
 
 ### Clustered Index Example:
 ```sql
