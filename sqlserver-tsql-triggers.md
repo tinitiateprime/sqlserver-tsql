@@ -20,7 +20,7 @@ DDL triggers fire in response to changes to the database schema, such as creatin
 ```sql
 -- Test Table for Trigger Demonstration
 -- ----------------------------
-CREATE TABLE emp (
+CREATE TABLE employees.emp (
     emp_id INT PRIMARY KEY,
     emp_name VARCHAR(100),
     job_title VARCHAR(100),
